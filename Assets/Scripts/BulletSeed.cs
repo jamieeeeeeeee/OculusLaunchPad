@@ -26,6 +26,7 @@ public class BulletSeed : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("OnCollisionEnter CloudBullet");
+        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.GetComponent<PlantableArea>() != null && collision.gameObject.GetComponent<PlantableArea>().IsPlantableArea())
         {
             int randomTreeIndex = Mathf.RoundToInt(Random.Range(0, 1) * (prefabSeeds.Length - 1));
