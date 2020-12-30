@@ -8,20 +8,17 @@ using UnityEngine;
 
 public class BulletSeed : MonoBehaviour
 {
-
-
     [SerializeField] private GameObject[] prefabSeeds;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+	float timeDelta = 0f;
+	
+	void Update()
+	{
+		timeDelta = timeDelta + Time.deltaTime;
+		if (timeDelta > 2f)
+		{
+			Destroy(gameObject);
+		}
+	}
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -32,7 +29,7 @@ public class BulletSeed : MonoBehaviour
             int randomTreeIndex = Mathf.RoundToInt(Random.Range(0, 1) * (prefabSeeds.Length - 1));
             Debug.Log("OnCollisionEnter Seed");
             ContactPoint contact = collision.contacts[0];
-            GameObject tree = Instantiate(prefabSeeds[0], contact.point, Quaternion.identity);
+            GameObject tree = Instantiate(prefabSeeds[randomTreeIndex], contact.point, Quaternion.identity);
 
             tree.GetComponent<Animator>().SetBool("shouldGrow", true);
             Destroy(gameObject);

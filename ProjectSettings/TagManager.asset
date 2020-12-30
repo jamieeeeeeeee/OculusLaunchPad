@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ' Fruit'
   - Puddle
+  - Crystal
   layers:
   - Default
   - TransparentFX

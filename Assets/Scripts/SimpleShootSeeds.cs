@@ -19,7 +19,7 @@ public class SimpleShootSeeds: MonoBehaviour
     [Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 2f;
     [Tooltip("Bullet Speed")] [SerializeField] private float shotPower = 500f;
     [Tooltip("Casing Ejection Speed")] [SerializeField] private float ejectPower = 150f;
-
+	[SerializeField] private float fireSpeed = .5f;
 
     private LineRenderer rr;
 
@@ -50,8 +50,12 @@ public class SimpleShootSeeds: MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
-			Shoot();
+			InvokeRepeating("Shoot", .001f, fireSpeed);
         }
+		else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
+		{
+			CancelInvoke("Shoot");
+		}
     }
 
 
@@ -73,7 +77,8 @@ public class SimpleShootSeeds: MonoBehaviour
         { return; }
 
         // Create a bullet and add force on it in direction of the barrel
-        Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
+		GameObject newBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
+		newBullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
 
     }
 
