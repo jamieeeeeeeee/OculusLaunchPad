@@ -14,7 +14,7 @@ public class BulletSeed : MonoBehaviour
 	void Update()
 	{
 		timeDelta = timeDelta + Time.deltaTime;
-		if (timeDelta > 2f)
+		if (timeDelta > 1f)
 		{
 			Destroy(gameObject);
 		}
@@ -22,12 +22,9 @@ public class BulletSeed : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnCollisionEnter CloudBullet");
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.GetComponent<PlantableArea>() != null && collision.gameObject.GetComponent<PlantableArea>().IsPlantableArea())
         {
             int randomTreeIndex = Mathf.RoundToInt(Random.Range(0, 1) * (prefabSeeds.Length - 1));
-            Debug.Log("OnCollisionEnter Seed");
             ContactPoint contact = collision.contacts[0];
             GameObject tree = Instantiate(prefabSeeds[randomTreeIndex], contact.point, Quaternion.identity);
 
