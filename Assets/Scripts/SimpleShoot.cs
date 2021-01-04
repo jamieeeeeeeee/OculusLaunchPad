@@ -33,7 +33,6 @@ public class SimpleShoot : MonoBehaviour
     void Update()
     {
 
-
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
             gunAnimator.SetTrigger("Fire");
