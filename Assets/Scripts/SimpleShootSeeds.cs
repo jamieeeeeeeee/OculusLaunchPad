@@ -21,6 +21,8 @@ public class SimpleShootSeeds: MonoBehaviour
     [Tooltip("Casing Ejection Speed")] [SerializeField] private float ejectPower = 150f;
 	[SerializeField] private float fireSpeed = .5f;
 
+    [SerializeField]
+	        private OVRInput.Controller m_controller = OVRInput.Controller.None;
     private LineRenderer rr;
 
     private Transform caster;
@@ -47,15 +49,15 @@ public class SimpleShootSeeds: MonoBehaviour
     void Update()
     {
 
-
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
-        {
+		if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, m_controller))
+		{
 			InvokeRepeating("Shoot", .001f, fireSpeed);
-        }
-		else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
+		}
+		else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, m_controller))
 		{
 			CancelInvoke("Shoot");
 		}
+
     }
 
 
